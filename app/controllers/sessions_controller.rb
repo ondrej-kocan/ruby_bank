@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
 
   def new
+    if @current_customer
+      redirect_to account_url
+    end
   end
 
   def create
