@@ -20,4 +20,14 @@ class Account < ActiveRecord::Base
 
   belongs_to :customer
 
+  def debit(amount)
+    self.balance -= amount
+    save
+  end
+
+  def credit(amount)
+    self.balance += amount
+    save
+  end
+
 end
