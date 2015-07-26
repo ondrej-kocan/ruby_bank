@@ -21,6 +21,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session[:customer_id] = nil
+    redirect_to login_url
   end
 
 end

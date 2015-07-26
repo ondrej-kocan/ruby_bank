@@ -15,7 +15,7 @@
         <% end %>
 
         <% unless @current_customer.nil? %>
-            Logout
+            <%= link_to 'Logout', logout_url, { method: :delete } %>
         <% end %>
 
         <%= yield %>
