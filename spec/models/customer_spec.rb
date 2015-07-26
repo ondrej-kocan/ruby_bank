@@ -23,6 +23,14 @@ RSpec.describe Customer, type: :model do
     FactoryGirl.build(:customer, username: '0' * 26).should_not be_valid
   end
 
-  it 'needs to have a unique username'
+  it 'needs to have a unique username' do
+    first = FactoryGirl.create(:customer)
+    first.save
+
+    second = FactoryGirl.build(:customer, username: first.username)
+
+    first.should be_valid
+    second.should_not be_valid
+  end
 
 end
