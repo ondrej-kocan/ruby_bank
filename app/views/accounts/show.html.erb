@@ -1,18 +1,22 @@
-<div class="container">
-    Balance: <%= @account.balance %>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        Balance: <%= @account.balance %>
+    </div>
 </div>
 
-<div class="container">
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
 
-    <%= form_for(:session, url: transfer_path) do |f| %>
+        <%= form_for(:transfer, url: transfer_path) do |f| %>
 
-        <%= f.label :to_user %>
-        <%= f.text_field :to_user, class: 'form-control' %>
+            <%= f.label :recipient %>
+            <%= f.text_field :recipient, class: 'form-control' %>
 
-        <%= f.label :amount %>
-        <%= f.text_field :amount, class: 'form-control' %>
+            <%= f.label :amount %>
+            <%= f.text_field :amount, class: 'form-control' %>
 
-        <%= f.submit 'Transfer', class: 'btn btn-primary' %>
-    <% end %>
+            <%= f.submit 'Transfer', class: 'btn btn-primary' %>
+        <% end %>
 
+    </div>
 </div>
