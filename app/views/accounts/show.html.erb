@@ -1,1 +1,18 @@
-Balance: <%= @account.balance %>
+<div class="container">
+    Balance: <%= @account.balance %>
+</div>
+
+<div class="container">
+
+    <%= form_for(:session, url: transfer_path) do |f| %>
+
+        <%= f.label :to_user %>
+        <%= f.text_field :to_user, class: 'form-control' %>
+
+        <%= f.label :amount %>
+        <%= f.text_field :amount, class: 'form-control' %>
+
+        <%= f.submit 'Transfer', class: 'btn btn-primary' %>
+    <% end %>
+
+</div>
