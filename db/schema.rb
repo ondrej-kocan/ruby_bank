@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726100456) do
+ActiveRecord::Schema.define(version: 20150726112347) do
 
   create_table "accounts", force: true do |t|
     t.datetime "created_at"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20150726100456) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
+  end
+
+  create_table "transaction_logs", force: true do |t|
+    t.integer  "source_id"
+    t.decimal  "source_balance_after"
+    t.integer  "target_id"
+    t.decimal  "target_balance_after"
+    t.decimal  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
