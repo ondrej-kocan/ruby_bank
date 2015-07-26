@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
       redirect_to login_url
     end
 
+    @account = @current_customer.account
   end
 
 end
