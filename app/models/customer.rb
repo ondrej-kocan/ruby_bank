@@ -12,17 +12,31 @@
 # => "$2a$10$XBCF9r9YRvu0Ug5ZsR2ikuqpF/b7i9eGjLUPYH5Mx3YbTlCkq/HVu"
 #
 # irb(main):018:0* c.save
-#    (0.2ms)  begin transaction
-#   Customer Exists (0.6ms)  SELECT  1 AS one FROM "customers"  WHERE LOWER("customers"."username") = LOWER('ondrej_kocan') LIMIT 1
+#    (0.4ms)  begin transaction
+#   Customer Exists (0.2ms)  SELECT  1 AS one FROM "customers"  WHERE LOWER("customers"."username") = LOWER('ondrej_kocan') LIMIT 1
 # Binary data inserted for `string` type on column `password_digest`
-#   SQL (1.1ms)  INSERT INTO "customers" ("created_at", "password_digest", "updated_at", "username") VALUES (?, ?, ?, ?)  [["created_at", "2015-07-26 08:08:03.431686"], ["password_digest", "$2a$10$XBCF9r9YRvu0Ug5ZsR2ikuqpF/b7i9eGjLUPYH5Mx3YbTlCkq/HVu"], ["updated_at", "2015-07-26 08:08:03.431686"], ["username", "ondrej_kocan"]]
-#    (1.4ms)  commit transaction
+#   SQL (0.4ms)  INSERT INTO "customers" ("created_at", "password_digest", "updated_at", "username") VALUES (?, ?, ?, ?)  [["created_at", "2015-07-26 10:06:53.782905"], ["password_digest", "$2a$10$LuIPwV8s6q8G6ZDbawADvOztLAzFaLBmlg1In976YAGoNwXuXzeeW"], ["updated_at", "2015-07-26 10:06:53.782905"], ["username", "ondrej_kocan"]]
+#   SQL (0.1ms)  INSERT INTO "accounts" ("balance", "created_at", "customer_id", "updated_at") VALUES (?, ?, ?, ?)  [["balance", 0.0], ["created_at", "2015-07-26 10:06:53.853969"], ["customer_id", 2], ["updated_at", "2015-07-26 10:06:53.853969"]]
+#    (0.8ms)  commit transaction
 # => true
 #
 class Customer < ActiveRecord::Base
 
   has_secure_password
 
+  before_create :create_account
+
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: {minimum: 4, maximum: 25}
+
+  has_one :account
+
+  private
+
+    def create_account
+      account = Account.new
+      account.balance = 0
+      account.customer = self
+      self.account = account
+    end
 
 end
